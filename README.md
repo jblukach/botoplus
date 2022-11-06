@@ -1,5 +1,11 @@
 # botoplus
 
+### Install
+
+```
+pip install botoplus
+```
+
 ### Login
 
 ```
