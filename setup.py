@@ -8,7 +8,7 @@ with open("README.md", "r") as f:
 setup(
     name = "botoplus",
     version = __version__,
-    description = "tba",
+    description = "Threat Hunting Toolkit",
     long_description = long_description,
     long_description_content_type = "text/markdown",
     url = "https://github.com/botoplus/botoplus",
@@ -16,9 +16,15 @@ setup(
     author_email = "hello@botoplus.com",
     license = "Apache-2.0",
     packages = ["botoplus"],
-    zip_safe = False,
+    install_requires = [
+        "aws-sso-lib",
+        "boto3",
+        "typer[all]"
+    ],
     entry_points = {
-        "console_scripts": ["botoplus=botoplus.botoplus:main"],
+        "console_scripts": [
+            "botoplus=botoplus.botoplus:app"
+        ],
     },
     python_requires = ">=3.7",
 )
