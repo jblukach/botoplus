@@ -55,16 +55,16 @@ def region(service,action,key):
 
     print('** '+selected_account['awsaccount']+' {'+selected_account['awsalias']+'} **')
 
-    session = aws_sso_lib.get_boto3_session(
-        start_url = 'https://'+identity_store+'.awsapps.com/start',
-        sso_region = sso_region, 
-        account_id = selected_account['awsaccount'],
-        role_name = sso_role,
-        region  = selected_region,
-        login = True
-    )
-
     try:
+
+        session = aws_sso_lib.get_boto3_session(
+            start_url = 'https://'+identity_store+'.awsapps.com/start',
+            sso_region = sso_region, 
+            account_id = selected_account['awsaccount'],
+            role_name = sso_role,
+            region  = selected_region,
+            login = True
+        )
 
         print(' - '+selected_region)
 

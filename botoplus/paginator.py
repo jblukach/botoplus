@@ -51,16 +51,16 @@ def paginator(service,action,key):
 
     for account in accounts:
 
-        session = aws_sso_lib.get_boto3_session(
-            start_url = 'https://'+identity_store+'.awsapps.com/start',
-            sso_region = sso_region, 
-            account_id = account[0],
-            role_name = sso_role,
-            region  = selected_region,
-            login = True
-        )
-
         try:
+
+            session = aws_sso_lib.get_boto3_session(
+                start_url = 'https://'+identity_store+'.awsapps.com/start',
+                sso_region = sso_region, 
+                account_id = account[0],
+                role_name = sso_role,
+                region  = selected_region,
+                login = True
+            )
 
             print('** '+account[0]+' {'+account[1]+'} **')
 

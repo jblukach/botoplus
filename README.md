@@ -8,7 +8,27 @@ Having written so much code over the years, it was time for a more extensible fr
  - Supported Artifact Collection
  - API Call Exhaustion (Storage)
 
+Enter the service, action, and result key to capture Amazon Web Services (AWS) data from that point in time view.
+
+Reference: https://github.com/boto/botocore/tree/develop/botocore/data
+
 ### Installation
+
+<details>
+<summary>Requirement</summary>
+
+AWS Command Line Interface (AWS CLI) Version 2
+
+```
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+aws --version
+```
+
+https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+
+</details>
 
 <details>
 <summary>Deployment</summary>
