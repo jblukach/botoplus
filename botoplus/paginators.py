@@ -58,20 +58,26 @@ def paginators(service,action,key):
 
         for regions in response['Regions']:
 
-            print(' - '+regions['RegionName'])
+            try:
 
-            ec2_client = session.client(service, region_name = regions['RegionName'])
+                print(' - '+regions['RegionName'])
 
-            paginator = ec2_client.get_paginator(action)
+                ec2_client = session.client(service, region_name = regions['RegionName'])
+
+                paginator = ec2_client.get_paginator(action)
     
-            pages = paginator.paginate()
+                pages = paginator.paginate()
 
-            for page in pages:
+                for page in pages:
 
-                for item in page[key]:
+                    for item in page[key]:
 
-                    item['awsaccount'] = account[0]
-                    item['awsalias'] = account[1]
-                    f.write(str(item)+'\n')
+                        item['awsaccount'] = account[0]
+                        item['awsalias'] = account[1]
+                        f.write(str(item)+'\n')
+
+            except:
+                print(' - '+regions['RegionName']+' DENIED')
+                pass
 
     f.close()

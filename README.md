@@ -1,12 +1,37 @@
 # botoplus
 
-### Install
+Cloud Security Posture Management (CSPM) is a crowded market space with all the Open-Source and Vendor offerings. Why do we need yet another set of Python Boto3 scripts?
+
+Having written so much code over the years, it was time for a more extensible framework addressing common pitfalls.
+
+ - Identity Access Management
+ - Supported Artifact Collection
+ - API Call Exhaustion (Storage)
+
+### Installation
+
+<details>
+<summary>Deployment</summary>
 
 ```
 pip install botoplus
 ```
 
-### Login
+</details>
+
+<details>
+<summary>Shell Completion</summary>
+
+```
+botoplus --install-completion
+```
+
+</details>
+
+### IAM Identity Center 
+
+<details>
+<summary>Single Sign-On</summary>
 
 ```
 $ botoplus login 
@@ -16,7 +41,12 @@ SSO Role: AWSAdministratorAccess
 Authenticated!!
 ```
 
-### Account
+</details>
+
+### Pagination
+
+<details>
+<summary>Single Account - All Regions</summary>
 
 ```
 $ botoplus account 
@@ -50,29 +80,31 @@ Selected Account: AccountName
  - us-west-2
 ```
 
-### Paginator
+</details>
+
+<details>
+<summary>Single Region - All Accounts</summary>
 
 ```
 $ botoplus paginator
 AWS Service: ec2
 AWS Action: describe_instances
 Result Key: Reservations
-Selected Region: us-east-2 [y/N]: y
-Last Modified: 2022-11-06 22:58:45.313488
 Update Collection [y/N]: y
 ** 123456789011 {AccountName1} **
 ** 123456789012 {AccountName2} **
 ```
 
-### Paginators
+</details>
+
+<details>
+<summary>All Regions - All Accounts</summary>
 
 ```
 $ botoplus paginators
 AWS Service: ec2
 AWS Action: describe_instances
 Result Key: Reservations
-Last Modified: 2022-11-06 22:58:45.313488
-Update Collection [y/N]: y
 ** 123456789011 {AccountName1} **
  - af-south-1
  - eu-north-1
@@ -123,7 +155,10 @@ Update Collection [y/N]: y
  - us-west-2
 ```
 
-### Region
+</details>
+
+<details>
+<summary>Single Region - Single Account</summary>
 
 ```
 $ botoplus region
@@ -136,8 +171,30 @@ Selected Region: us-east-2 [y/N]: y
  - us-east-2
 ```
 
-### Local Development
+</details>
+
+### Validation
+
+<details>
+<summary>Items Checked</summary>
+
+ - AWS Account Alias
+ - AWS Account Number
+ - Selected Account
+ - Selected Region
+ - SSO Active Region
+ - SSO Active Role
+ - Update Collection
+
+</details>
+
+### Development
+
+<details>
+<summary>Local Build</summary>
 
 ```
 python setup.py install --user
 ```
+
+</details>

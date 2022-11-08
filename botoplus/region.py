@@ -55,8 +55,6 @@ def region(service,action,key):
 
     print('** '+selected_account['awsaccount']+' {'+selected_account['awsalias']+'} **')
 
-    print(' - '+selected_region)
-
     session = aws_sso_lib.get_boto3_session(
         start_url = 'https://'+identity_store+'.awsapps.com/start',
         sso_region = sso_region, 
@@ -66,18 +64,26 @@ def region(service,action,key):
         login = True
     )
 
-    client = session.client(service)
+    try:
 
-    paginator = client.get_paginator(action)
+        print(' - '+selected_region)
 
-    pages = paginator.paginate()
+        client = session.client(service)
 
-    for page in pages:
+        paginator = client.get_paginator(action)
 
-        for item in page[key]:
+        pages = paginator.paginate()
 
-            item['awsaccount'] = selected_account['awsaccount']
-            item['awsalias'] = selected_account['awsalias']
-            f.write(str(item)+'\n')
+        for page in pages:
+
+            for item in page[key]:
+
+                item['awsaccount'] = selected_account['awsaccount']
+                item['awsalias'] = selected_account['awsalias']
+                f.write(str(item)+'\n')
+
+    except:
+        print(' - '+selected_region+' DENIED')
+        pass
 
     f.close()

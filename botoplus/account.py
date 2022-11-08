@@ -60,20 +60,26 @@ def account(service,action,key):
 
     for regions in response['Regions']:
 
-        print(' - '+regions['RegionName'])
+        try:
 
-        ec2_client = session.client(service, region_name = regions['RegionName'])
+            print(' - '+regions['RegionName'])
 
-        paginator = ec2_client.get_paginator(action)
+            ec2_client = session.client(service, region_name = regions['RegionName'])
+
+            paginator = ec2_client.get_paginator(action)
     
-        pages = paginator.paginate()
+            pages = paginator.paginate()
 
-        for page in pages:
+            for page in pages:
 
-            for item in page[key]:
+                for item in page[key]:
 
-                item['awsaccount'] = selected_account['awsaccount']
-                item['awsalias'] = selected_account['awsalias']
-                f.write(str(item)+'\n')
+                    item['awsaccount'] = selected_account['awsaccount']
+                    item['awsalias'] = selected_account['awsalias']
+                    f.write(str(item)+'\n')
+
+        except:
+            print(' - '+regions['RegionName']+' DENIED')
+            pass
 
     f.close()

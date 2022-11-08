@@ -51,8 +51,6 @@ def paginator(service,action,key):
 
     for account in accounts:
 
-        print('** '+account[0]+' {'+account[1]+'} **')
-
         session = aws_sso_lib.get_boto3_session(
             start_url = 'https://'+identity_store+'.awsapps.com/start',
             sso_region = sso_region, 
@@ -62,18 +60,27 @@ def paginator(service,action,key):
             login = True
         )
 
-        client = session.client(service)
+        try:
 
-        paginator = client.get_paginator(action)
+            print('** '+account[0]+' {'+account[1]+'} **')
 
-        pages = paginator.paginate()
+            client = session.client(service)
 
-        for page in pages:
+            paginator = client.get_paginator(action)
 
-            for item in page[key]:
+            pages = paginator.paginate()
 
-                item['awsaccount'] = account[0]
-                item['awsalias'] = account[1]
-                f.write(str(item)+'\n')
+            for page in pages:
+
+                for item in page[key]:
+
+                    item['awsaccount'] = account[0]
+                    item['awsalias'] = account[1]
+                    f.write(str(item)+'\n')
+
+        except:
+
+            print('** '+account[0]+' {'+account[1]+'} ** DENIED')
+            pass
 
     f.close()
