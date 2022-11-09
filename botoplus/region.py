@@ -66,8 +66,6 @@ def region(service,action,key):
             login = True
         )
 
-        print(' - '+selected_region)
-
         client = session.client(service)
 
         paginator = client.get_paginator(action)
@@ -81,6 +79,8 @@ def region(service,action,key):
                 item['awsaccount'] = selected_account['awsaccount']
                 item['awsalias'] = selected_account['awsalias']
                 f.write(str(item)+'\n')
+
+        print(' - '+selected_region)
 
     except:
         print(' - '+selected_region+' DENIED')

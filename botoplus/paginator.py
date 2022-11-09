@@ -62,8 +62,6 @@ def paginator(service,action,key):
                 login = True
             )
 
-            print('** '+account[0]+' {'+account[1]+'} **')
-
             client = session.client(service)
 
             paginator = client.get_paginator(action)
@@ -77,6 +75,8 @@ def paginator(service,action,key):
                     item['awsaccount'] = account[0]
                     item['awsalias'] = account[1]
                     f.write(str(item)+'\n')
+
+            print('** '+account[0]+' {'+account[1]+'} **')
 
         except:
 

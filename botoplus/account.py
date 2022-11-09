@@ -62,8 +62,6 @@ def account(service,action,key):
 
         try:
 
-            print(' - '+regions['RegionName'])
-
             ec2_client = session.client(service, region_name = regions['RegionName'])
 
             paginator = ec2_client.get_paginator(action)
@@ -77,6 +75,8 @@ def account(service,action,key):
                     item['awsaccount'] = selected_account['awsaccount']
                     item['awsalias'] = selected_account['awsalias']
                     f.write(str(item)+'\n')
+
+            print(' - '+regions['RegionName'])
 
         except:
             print(' - '+regions['RegionName']+' DENIED')
