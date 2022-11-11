@@ -112,7 +112,9 @@ AWS Action: describe_instances
 Result Key: Reservations
 Update Collection [y/N]: y
 ** 123456789011 {AccountName1} **
+ - us-east-2
 ** 123456789012 {AccountName2} **
+ - us-east-2
 ```
 
 </details>
