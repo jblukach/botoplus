@@ -78,6 +78,7 @@ def region(service,action,key):
 
                 item['awsaccount'] = selected_account['awsaccount']
                 item['awsalias'] = selected_account['awsalias']
+                item['awsregion'] = selected_region
                 f.write(str(item)+'\n')
 
         print(' - '+selected_region)

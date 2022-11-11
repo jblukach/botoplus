@@ -76,6 +76,7 @@ def paginator(service,action,key):
 
                     item['awsaccount'] = account[0]
                     item['awsalias'] = account[1]
+                    item['awsregion'] = selected_region
                     f.write(str(item)+'\n')
 
             print(' - '+selected_region)
