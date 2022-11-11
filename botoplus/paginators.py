@@ -41,43 +41,49 @@ def paginators(service,action,key):
 
     for account in accounts:
 
-        print('** '+account[0]+' {'+account[1]+'} **')
+        try:
 
-        session = aws_sso_lib.get_boto3_session(
-            start_url = 'https://'+identity_store+'.awsapps.com/start',
-            sso_region = sso_region, 
-            account_id = account[0],
-            role_name = sso_role,
-            region  = sso_region,
-            login = True
-        )
+            session = aws_sso_lib.get_boto3_session(
+                start_url = 'https://'+identity_store+'.awsapps.com/start',
+                sso_region = sso_region, 
+                account_id = account[0],
+                role_name = sso_role,
+                region  = sso_region,
+                login = True
+            )
 
-        ec2_global = session.client('ec2')
+            ec2_global = session.client('ec2')
 
-        response = ec2_global.describe_regions()
+            response = ec2_global.describe_regions()
 
-        for regions in response['Regions']:
+            print('** '+account[0]+' {'+account[1]+'} **')
 
-            try:
+            for regions in response['Regions']:
 
-                ec2_client = session.client(service, region_name = regions['RegionName'])
+                try:
 
-                paginator = ec2_client.get_paginator(action)
-    
-                pages = paginator.paginate()
+                    ec2_client = session.client(service, region_name = regions['RegionName'])
 
-                for page in pages:
+                    paginator = ec2_client.get_paginator(action)
 
-                    for item in page[key]:
+                    pages = paginator.paginate()
 
-                        item['awsaccount'] = account[0]
-                        item['awsalias'] = account[1]
-                        f.write(str(item)+'\n')
+                    for page in pages:
 
-                print(' - '+regions['RegionName'])
+                        for item in page[key]:
 
-            except:
-                print(' - '+regions['RegionName']+' DENIED')
-                pass
+                            item['awsaccount'] = account[0]
+                            item['awsalias'] = account[1]
+                            f.write(str(item)+'\n')
+
+                    print(' - '+regions['RegionName'])
+
+                except:
+                    print(' - '+regions['RegionName']+' DENIED')
+                    pass
+
+        except:
+            print('** '+account[0]+' {'+account[1]+'} ** DENIED')
+            pass
 
     f.close()

@@ -51,6 +51,8 @@ def paginator(service,action,key):
 
     for account in accounts:
 
+        print('** '+account[0]+' {'+account[1]+'} **')
+
         try:
 
             session = aws_sso_lib.get_boto3_session(
@@ -76,11 +78,10 @@ def paginator(service,action,key):
                     item['awsalias'] = account[1]
                     f.write(str(item)+'\n')
 
-            print('** '+account[0]+' {'+account[1]+'} **')
+            print(' - '+selected_region)
 
         except:
-
-            print('** '+account[0]+' {'+account[1]+'} ** DENIED')
+            print(' - '+selected_region+' DENIED')
             pass
 
     f.close()

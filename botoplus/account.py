@@ -43,43 +43,49 @@ def account(service,action,key):
 
     f = pathlib.Path(storage).open('w')
 
-    print('** '+selected_account['awsaccount']+' {'+selected_account['awsalias']+'} **')
+    try:
 
-    session = aws_sso_lib.get_boto3_session(
-        start_url = 'https://'+identity_store+'.awsapps.com/start',
-        sso_region = sso_region, 
-        account_id = selected_account['awsaccount'],
-        role_name = sso_role,
-        region  = sso_region,
-        login = True
-    )
+        session = aws_sso_lib.get_boto3_session(
+            start_url = 'https://'+identity_store+'.awsapps.com/start',
+            sso_region = sso_region, 
+            account_id = selected_account['awsaccount'],
+            role_name = sso_role,
+            region  = sso_region,
+            login = True
+        )
 
-    ec2_global = session.client('ec2')
+        ec2_global = session.client('ec2')
 
-    response = ec2_global.describe_regions()
+        response = ec2_global.describe_regions()
 
-    for regions in response['Regions']:
+        print('** '+selected_account['awsaccount']+' {'+selected_account['awsalias']+'} **')
 
-        try:
+        for regions in response['Regions']:
 
-            ec2_client = session.client(service, region_name = regions['RegionName'])
+            try:
 
-            paginator = ec2_client.get_paginator(action)
+                ec2_client = session.client(service, region_name = regions['RegionName'])
+
+                paginator = ec2_client.get_paginator(action)
     
-            pages = paginator.paginate()
+                pages = paginator.paginate()
 
-            for page in pages:
+                for page in pages:
 
-                for item in page[key]:
+                    for item in page[key]:
 
-                    item['awsaccount'] = selected_account['awsaccount']
-                    item['awsalias'] = selected_account['awsalias']
-                    f.write(str(item)+'\n')
+                        item['awsaccount'] = selected_account['awsaccount']
+                        item['awsalias'] = selected_account['awsalias']
+                        f.write(str(item)+'\n')
 
-            print(' - '+regions['RegionName'])
+                print(' - '+regions['RegionName'])
 
-        except:
-            print(' - '+regions['RegionName']+' DENIED')
-            pass
+            except:
+                print(' - '+regions['RegionName']+' DENIED')
+                pass
+
+    except:
+        print('** '+selected_account['awsaccount']+' {'+selected_account['awsalias']+'} ** DENIED')
+        pass
 
     f.close()
