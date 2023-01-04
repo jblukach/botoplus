@@ -63,6 +63,138 @@ Authenticated!!
 
 </details>
 
+### Cloud Development Kit
+
+<details>
+<summary>Remove Bootstrap Everywhere</summary>
+
+:rotating_light: **DESTRUCTION** :rotating_light:
+
+- cfn
+- ecr
+- s3
+
+```
+$ botoplus cdk unbootstrap
+CDK Qualifier: 4n6ir
+Destroy [y/N]: y
+** 123456789011 {AccountName1} **
+ - af-south-1
+ - eu-north-1
+ - ap-south-1
+ - eu-west-3
+ - eu-west-2
+ - eu-south-1
+ - eu-west-1
+ - ap-northeast-3
+ - ap-northeast-2
+ - me-south-1
+ - ap-northeast-1
+ - me-central-1
+ - sa-east-1
+ - ca-central-1
+ - ap-east-1
+ - ap-southeast-1
+ - ap-southeast-2
+ - ap-southeast-3
+ - eu-central-1
+ - us-east-1
+ - us-east-2
+ - us-west-1
+ - us-west-2
+** 123456789012 {AccountName2} **
+ - af-south-1
+ - eu-north-1
+ - ap-south-1
+ - eu-west-3
+ - eu-west-2
+ - eu-south-1
+ - eu-west-1
+ - ap-northeast-3
+ - ap-northeast-2
+ - me-south-1
+ - ap-northeast-1
+ - me-central-1
+ - sa-east-1
+ - ca-central-1
+ - ap-east-1
+ - ap-southeast-1
+ - ap-southeast-2
+ - ap-southeast-3
+ - eu-central-1
+ - us-east-1
+ - us-east-2
+ - us-west-1
+ - us-west-2
+```
+
+</details>
+
+### Cloudformation
+
+<details>
+<summary>Delete Stack Everywhere</summary>
+
+:rotating_light: **DESTRUCTION** :rotating_light:
+
+- cfn
+
+```
+$ botoplus cloudformation deletestack 
+Stack Name: FixiamStack
+Destroy [y/N]: y
+** 123456789011 {AccountName1} **
+ - af-south-1
+ - eu-north-1
+ - ap-south-1
+ - eu-west-3
+ - eu-west-2
+ - eu-south-1
+ - eu-west-1
+ - ap-northeast-3
+ - ap-northeast-2
+ - me-south-1
+ - ap-northeast-1
+ - me-central-1
+ - sa-east-1
+ - ca-central-1
+ - ap-east-1
+ - ap-southeast-1
+ - ap-southeast-2
+ - ap-southeast-3
+ - eu-central-1
+ - us-east-1
+ - us-east-2
+ - us-west-1
+ - us-west-2
+** 123456789012 {AccountName2} **
+ - af-south-1
+ - eu-north-1
+ - ap-south-1
+ - eu-west-3
+ - eu-west-2
+ - eu-south-1
+ - eu-west-1
+ - ap-northeast-3
+ - ap-northeast-2
+ - me-south-1
+ - ap-northeast-1
+ - me-central-1
+ - sa-east-1
+ - ca-central-1
+ - ap-east-1
+ - ap-southeast-1
+ - ap-southeast-2
+ - ap-southeast-3
+ - eu-central-1
+ - us-east-1
+ - us-east-2
+ - us-west-1
+ - us-west-2
+```
+
+</details>
+
 ### Pagination
 
 <details>
@@ -191,6 +323,72 @@ Selected Account: AccountName
 Selected Region: us-east-2 [y/N]: y
 ** 123456789012 {AccountName} **
  - us-east-2
+```
+
+</details>
+
+### Security Hub
+
+<details>
+<summary>Integration & Stanard Baseline</summary>
+
+:warning: **CONFIGURATION** :warning:
+
+- access-analyzer
+- health
+- securityhub
+
+```
+$ botoplus securityhub baseline
+Configure [y/N]: y
+** 123456789011 {AccountName1} **
+ - af-south-1
+ - eu-north-1
+ - ap-south-1
+ - eu-west-3
+ - eu-west-2
+ - eu-south-1
+ - eu-west-1
+ - ap-northeast-3
+ - ap-northeast-2
+ - me-south-1
+ - ap-northeast-1
+ - me-central-1
+ - sa-east-1
+ - ca-central-1
+ - ap-east-1
+ - ap-southeast-1
+ - ap-southeast-2
+ - ap-southeast-3
+ - eu-central-1
+ - us-east-1
+ - us-east-2
+ - us-west-1
+ - us-west-2
+** 123456789012 {AccountName2} **
+ - af-south-1
+ - eu-north-1
+ - ap-south-1
+ - eu-west-3
+ - eu-west-2
+ - eu-south-1
+ - eu-west-1
+ - ap-northeast-3
+ - ap-northeast-2
+ - me-south-1
+ - ap-northeast-1
+ - me-central-1
+ - sa-east-1
+ - ca-central-1
+ - ap-east-1
+ - ap-southeast-1
+ - ap-southeast-2
+ - ap-southeast-3
+ - eu-central-1
+ - us-east-1
+ - us-east-2
+ - us-west-1
+ - us-west-2
 ```
 
 </details>

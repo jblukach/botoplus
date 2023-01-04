@@ -73,3 +73,19 @@ def login():
             pathlib.Path(role).write_text(sso_role)
 
     print('Authenticated!!')
+
+def logout():
+
+    identity = pathlib.Path.joinpath(pathlib.Path.home(),'.botoplus_idp')
+    identity_store = pathlib.Path(identity).read_text()
+
+    sso = pathlib.Path.joinpath(pathlib.Path.home(),'.botoplus_sso')
+    sso_region = pathlib.Path(sso).read_text()
+
+    aws_sso_lib.sso.logout(
+        start_url = 'https://'+identity_store+'.awsapps.com/start',
+        sso_region = sso_region,
+        sso_cache = None
+    )
+
+    print('Logged Out!!')
