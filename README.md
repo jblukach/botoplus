@@ -63,6 +63,16 @@ Authenticated!!
 
 </details>
 
+<details>
+<summary>Single Sign-Out</summary>
+
+```
+$ botoplus logout 
+Logged Out!!
+```
+
+</details>
+
 ### Cloud Development Kit
 
 <details>
