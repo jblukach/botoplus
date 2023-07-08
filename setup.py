@@ -8,7 +8,7 @@ with open("README.md", "r") as f:
 setup(
     name = "botoplus",
     version = __version__,
-    description = "Threat Hunting Toolkit",
+    description = "Python Library for Jupyter Notebooks",
     long_description = long_description,
     long_description_content_type = "text/markdown",
     url = "https://github.com/botoplus/botoplus",
@@ -21,10 +21,5 @@ setup(
         "boto3",
         "typer[all]"
     ],
-    entry_points = {
-        "console_scripts": [
-            "botoplus=botoplus.botoplus:app"
-        ],
-    },
     python_requires = ">=3.7",
 )

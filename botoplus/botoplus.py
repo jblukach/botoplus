@@ -1,57 +1,124 @@
+import aws_sso_lib
 import pathlib
 import typer
-import botoplus.account as _account
-import botoplus.cdk as _cdk
-import botoplus.cloudformation as _cloudformation
-import botoplus.identity as _idp
-import botoplus.paginator as _page
-import botoplus.paginators as _pages
-import botoplus.region as _region
-import botoplus.securityhub as _securityhub
 
-app = typer.Typer()
+def account(selected_account,identity_store,sso_region):
 
-@app.command()
-def account():
-    aws_service = typer.prompt("AWS Service").strip()
-    aws_action = typer.prompt("AWS Action").strip()
-    result_key = typer.prompt("Result Key").strip()
-    _account.account(aws_service,aws_action,result_key)
+    accounts = aws_sso_lib.list_available_accounts(
+        start_url = 'https://'+identity_store+'.awsapps.com/start',
+        sso_region = sso_region, 
+        login = True
+    )
+    
+    accountlist = []
 
-app.add_typer(_cdk.app, name='cdk')
+    for account in accounts:
+        accountlist.append(account[0])
 
-app.add_typer(_cloudformation.app, name='cloudformation')
+    if selected_account not in accountlist:
+        print('Account List:')
+        for account in accountlist:
+            print(' * '+account)
+        raise typer.Abort()
 
-@app.command()
-def login():
-    _idp.login()
+def accounts():
 
-@app.command()
-def logout():
-    _idp.logout()
+    identity = pathlib.Path.joinpath(pathlib.Path.home(),'.aqueduct_idp')
+    identity_store = pathlib.Path(identity).read_text()
 
-@app.command()
-def paginator():
-    aws_service = typer.prompt("AWS Service").strip()
-    aws_action = typer.prompt("AWS Action").strip()
-    result_key = typer.prompt("Result Key").strip()
-    _page.paginator(aws_service,aws_action,result_key)
+    sso = pathlib.Path.joinpath(pathlib.Path.home(),'.aqueduct_sso')
+    sso_region = pathlib.Path(sso).read_text()
 
-@app.command()
-def paginators():
-    aws_service = typer.prompt("AWS Service").strip()
-    aws_action = typer.prompt("AWS Action").strip()
-    result_key = typer.prompt("Result Key").strip()
-    _pages.paginators(aws_service,aws_action,result_key)
+    accounts = aws_sso_lib.list_available_accounts(
+        start_url = 'https://'+identity_store+'.awsapps.com/start',
+        sso_region = sso_region, 
+        login = True
+    )
 
-@app.command()
-def region():
-    aws_service = typer.prompt("AWS Service").strip()
-    aws_action = typer.prompt("AWS Action").strip()
-    result_key = typer.prompt("Result Key").strip()
-    _region.region(aws_service,aws_action,result_key)
+    acctlist = []
 
-app.add_typer(_securityhub.app, name='securityhub')
+    for account in accounts:
+        acct = {}
+        acct['awsaccount'] = account[0]
+        acct['awsalias'] = account[1]
+        acctlist.append(acct)
 
-if __name__ == "__main__":
-    app()
+    return acctlist
+
+def alias(selected_account,identity_store,sso_region):
+
+    accounts = aws_sso_lib.list_available_accounts(
+        start_url = 'https://'+identity_store+'.awsapps.com/start',
+        sso_region = sso_region, 
+        login = True
+    )
+
+    for account in accounts:
+        if account[1].lower() == selected_account.lower():
+            item = {}
+            item['awsaccount'] = account[0]
+            item['awsalias'] = account[1]
+            return item
+
+    raise typer.Abort()
+
+def default():
+
+    identity = pathlib.Path.joinpath(pathlib.Path.home(),'.aqueduct_idp')
+    identity_store = pathlib.Path(identity).read_text()
+
+    sso = pathlib.Path.joinpath(pathlib.Path.home(),'.aqueduct_sso')
+    sso_region = pathlib.Path(sso).read_text()
+
+    role = pathlib.Path.joinpath(pathlib.Path.home(),'.aqueduct_role')
+    sso_role = pathlib.Path(role).read_text()
+
+    selected_account  = typer.prompt("Selected Account").strip()
+    print('\n')
+
+    if len(selected_account) == 12 and selected_account.isdigit():
+        account(selected_account,identity_store,sso_region)
+    else:    
+        selected_account = alias(selected_account,identity_store,sso_region)
+
+    try:
+        session = aws_sso_lib.get_boto3_session(
+            start_url = 'https://'+identity_store+'.awsapps.com/start',
+            sso_region = sso_region, 
+            account_id = selected_account['awsaccount'],
+            role_name = sso_role,
+            region  = sso_region,
+            login = True
+        )
+        return session
+    except:
+        print('\n** '+selected_account['awsaccount']+' {'+selected_account['awsalias']+'} - DENIED **')
+        pass
+
+def defaults(selected_account):
+
+    identity = pathlib.Path.joinpath(pathlib.Path.home(),'.aqueduct_idp')
+    identity_store = pathlib.Path(identity).read_text()
+
+    sso = pathlib.Path.joinpath(pathlib.Path.home(),'.aqueduct_sso')
+    sso_region = pathlib.Path(sso).read_text()
+
+    role = pathlib.Path.joinpath(pathlib.Path.home(),'.aqueduct_role')
+    sso_role = pathlib.Path(role).read_text()
+
+    try:
+        session = aws_sso_lib.get_boto3_session(
+            start_url = 'https://'+identity_store+'.awsapps.com/start',
+            sso_region = sso_region, 
+            account_id = selected_account['awsaccount'],
+            role_name = sso_role,
+            region  = sso_region,
+            login = True
+        )
+        return session
+    except:
+        print('\n** '+selected_account['awsaccount']+' {'+selected_account['awsalias']+'} - DENIED **')
+        pass
+
+def hello():
+    print('Hello, World!')
