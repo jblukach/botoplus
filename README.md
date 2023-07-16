@@ -15,6 +15,12 @@ Having written so much code over the years, it was time for a more extensible fr
 | -------- | ----------- |
 | [Authentication](authentication.ipynb) | GitHub Codespaces: AWS CLIv2 and Python Library Configuration |
 
+### Cloud Development Kit (CDK)
+
+| Notebook | Description |
+| -------- | ----------- |
+| [Identify CDK Bootstraps](cdk/identify-cdk-bootstraps.ipynb) | Identify CDK Bootstraps with Versions for All Accounts & Regions |
+
 ### Organizations
 
 | Notebook | Description |
