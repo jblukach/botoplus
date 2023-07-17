@@ -27,6 +27,12 @@ Having written so much code over the years, it was time for a more extensible fr
 | -------- | ----------- |
 | [Identify Privileged Accounts](organizations/identify-privileged-accounts.ipynb) | List of Delegated Administration Accounts & Services |
 
+### S3
+
+| Notebook | Description |
+| -------- | ----------- |
+| [Public CORS Configuration](s3/public-cors-configuration.ipynb) | Find potentially public S3 Buckets with CORS Configured |
+
 ### Security Hub
 
 | Notebook | Description |
