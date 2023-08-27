@@ -21,20 +21,32 @@ Having written so much code over the years, it was time for a more extensible fr
 | -------- | ----------- |
 | [Identify CDK Bootstraps](cdk/identify-cdk-bootstraps.ipynb) | Identify CDK Bootstraps with Versions for All Accounts & Regions |
 
+### Elastic Compute Cloud (EC2)
+
+| Notebook | Description |
+| -------- | ----------- |
+| [Public Amazon Machine Images](ec2/public-amazon-machine-images.ipynb) | Find Public Amazon Machine Images |
+
 ### Organizations
 
 | Notebook | Description |
 | -------- | ----------- |
 | [Identify Privileged Accounts](organizations/identify-privileged-accounts.ipynb) | List of Delegated Administration Accounts & Services |
 
-### S3
-
-| Notebook | Description |
-| -------- | ----------- |
-| [Public CORS Configuration](s3/public-cors-configuration.ipynb) | Find potentially public S3 Buckets with CORS Configured |
-
 ### Security Hub
 
 | Notebook | Description |
 | -------- | ----------- |
 | [Minimal Cost Configuration](securityhub/minimal-cost-configuration.ipynb) | Disable All Standards & Limit Subscriptions (IAM Analyzer & Health) |
+
+### Simple Storage Service (S3)
+
+| Notebook | Description |
+| -------- | ----------- |
+| [Public CORS Configuration](s3/public-cors-configuration.ipynb) | Find potentially public S3 Buckets with CORS Configured |
+
+### Virtual Private Cloud (VPC)
+
+| Notebook | Description |
+| -------- | ----------- |
+| [IP Address Conflicts](vpc/ip-address-conflicts.ipynb) | Identify IP address conflicts, default VPCs, & IPv6 configs |
