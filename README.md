@@ -14,7 +14,7 @@ A project providing a Python Library for Jupyter Notebooks to support data analy
 | -------- | ----------- |
 | [resolver-query-logs](notebooks/securitylake/resolver-query-logs.ipynb) | Amazon Route53 Resolver Query Logs |
 
-## Additional Detections
+## Additional Options
 
 ### Cloud Development Kit (CDK)
 
