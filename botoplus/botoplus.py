@@ -146,6 +146,24 @@ def defaults(selected_account):
         print('\n** '+selected_account['awsaccount']+' {'+selected_account['awsalias']+'} - DENIED **')
         pass
 
+def deletebootstrap():
+    qualifier  = typer.prompt("Delete CDK Qualifier Bootstrap").strip()
+    print(' '+qualifier)
+    confirm = typer.confirm("Destroy")
+    if not confirm:
+        raise typer.Abort()
+    else:
+        return qualifier
+
+def deletestack():
+    stackname  = typer.prompt("Delete Stack Name").strip()
+    print(' '+stackname)
+    confirm = typer.confirm("Destroy")
+    if not confirm:
+        raise typer.Abort()
+    else:
+        return stackname
+
 def execution():
     query_execution_id  = typer.prompt("Query Execution Id").strip()
     print(' '+query_execution_id+'\n')

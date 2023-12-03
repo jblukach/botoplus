@@ -1,12 +1,11 @@
 # botoplus
 
-A project providing a Python Library for Jupyter Notebooks to support data analysis using Amazon Security Lake for AWS Security Operations.
-
 ## Getting Started
 
 | Notebook | Description |
 | -------- | ----------- |
-| [botoplus](botoplus.ipynb) | Dependencies, Authentication, Configuration & Searching |
+| [botoplus](botoplus.ipynb) | Authentication & Dependencies |
+| [searching](notebooks/securitylake/searching.ipynb) | Searching the Security Lake Logs |
 
 ### Security Lake
 
@@ -21,6 +20,19 @@ A project providing a Python Library for Jupyter Notebooks to support data analy
 | Notebook | Description |
 | -------- | ----------- |
 | [identify-cdk-bootstraps](notebooks/cdk/identify-cdk-bootstraps.ipynb) | Identify CDK Bootstraps with Versions for All Accounts & Regions |
+| [remove-bootstrap-everywhere](notebooks/cdk/remove-bootstrap-everywhere.ipynb) | Remove CDK Bootstraps with provided Qualifier from Everywhere |
+
+### CloudFormation
+
+| Notebook | Description |
+| -------- | ----------- |
+| [delete-stack-everywhere](notebooks/cloudformation/delete-stack-everywhere.ipynb) | Delete CloudFormation Stack Everywhere |
+
+### Control Tower
+
+| Notebook | Description |
+| -------- | ----------- |
+| [periodic-daily-donfig-recordings](notebooks/controltower/periodic-daily-donfig-recordings.ipynb) | Setup Config Daily Recordings |
 
 ### Elastic Compute Cloud (EC2)
 
@@ -38,7 +50,13 @@ A project providing a Python Library for Jupyter Notebooks to support data analy
 
 | Notebook | Description |
 | -------- | ----------- |
-| [minimal-cost-configuration](notebooks/securityhub/minimal-cost-configuration.ipynb) | Disable All Standards & Limit Subscriptions (IAM Analyzer & Health) |
+| [minimal-cost-configuration](notebooks/securityhub/minimal-cost-configuration.ipynb) | Disable All Standards & Limit Subscriptions |
+
+### Security Lake
+
+| Notebook | Description |
+| -------- | ----------- |
+| [deregister-delegated-administrator](notebooks/securitylake/deregister-delegated-administrator.ipynb) | Deregister Delegated Administrator |
 
 ### Simple Storage Service (S3)
 
@@ -50,4 +68,5 @@ A project providing a Python Library for Jupyter Notebooks to support data analy
 
 | Notebook | Description |
 | -------- | ----------- |
+| [delete-default-vpcs](notebooks/vpc/delete-default-vpcs.ipynb) | Delete Default VPCs Across All Regions |
 | [ip-address-conflicts](notebooks/vpc/ip-address-conflicts.ipynb) | Identify IP address conflicts, default VPCs, & IPv6 configs |
