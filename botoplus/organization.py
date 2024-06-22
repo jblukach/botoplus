@@ -4,30 +4,30 @@ import typer
 
 def account(selected_account,identity_store,sso_region):
 
-    accounts = aws_sso_lib.list_available_accounts(
+    awsaccounts = aws_sso_lib.list_available_accounts(
         start_url = 'https://'+identity_store+'.awsapps.com/start',
         sso_region = sso_region, 
         login = True
     )
     
-    for account in accounts:
-        if account[0] == selected_account:
+    for acct in awsaccounts:
+        if acct[0] == selected_account:
             item = {}
-            item['awsaccount'] = account[0]
-            item['awsalias'] = account[1]
+            item['awsaccount'] = acct[0]
+            item['awsalias'] = acct[1]
             return item
 
     raise typer.Abort()
 
 def accounts():
 
-    identity = pathlib.Path.joinpath(pathlib.Path.home(),'.aqueduct_idp')
+    identity = pathlib.Path.joinpath(pathlib.Path.home(),'.botoplus_idp')
     identity_store = pathlib.Path(identity).read_text()
 
-    sso = pathlib.Path.joinpath(pathlib.Path.home(),'.aqueduct_sso')
+    sso = pathlib.Path.joinpath(pathlib.Path.home(),'.botoplus_sso')
     sso_region = pathlib.Path(sso).read_text()
 
-    accounts = aws_sso_lib.list_available_accounts(
+    awsaccounts = aws_sso_lib.list_available_accounts(
         start_url = 'https://'+identity_store+'.awsapps.com/start',
         sso_region = sso_region, 
         login = True
@@ -35,74 +35,56 @@ def accounts():
 
     acctlist = []
 
-    for account in accounts:
-        acct = {}
-        acct['awsaccount'] = account[0]
-        acct['awsalias'] = account[1]
-        acctlist.append(acct)
+    for acct in awsaccounts:
+
+        item = {}
+        item['awsaccount'] = acct[0]
+        item['awsalias'] = acct[1]
+        acctlist.append(item)
 
     return acctlist
 
 def alias(selected_account,identity_store,sso_region):
 
-    accounts = aws_sso_lib.list_available_accounts(
+    awsaccounts = aws_sso_lib.list_available_accounts(
         start_url = 'https://'+identity_store+'.awsapps.com/start',
         sso_region = sso_region, 
         login = True
     )
 
-    for account in accounts:
-        if account[1].lower() == selected_account.lower():
+    for acct in awsaccounts:
+        if acct[1].lower() == selected_account.lower():
             item = {}
-            item['awsaccount'] = account[0]
-            item['awsalias'] = account[1]
+            item['awsaccount'] = acct[0]
+            item['awsalias'] = acct[1]
             return item
 
     raise typer.Abort()
 
-def convert(selected_account):
+def selected():
 
-    identity = pathlib.Path.joinpath(pathlib.Path.home(),'.aqueduct_idp')
+    identity = pathlib.Path.joinpath(pathlib.Path.home(),'.botoplus_idp')
     identity_store = pathlib.Path(identity).read_text()
 
-    sso = pathlib.Path.joinpath(pathlib.Path.home(),'.aqueduct_sso')
+    sso = pathlib.Path.joinpath(pathlib.Path.home(),'.botoplus_sso')
     sso_region = pathlib.Path(sso).read_text()
 
-    accounts = aws_sso_lib.list_available_accounts(
-        start_url = 'https://'+identity_store+'.awsapps.com/start',
-        sso_region = sso_region, 
-        login = True
-    )
-
-    for account in accounts:
-        if account[1].lower() == selected_account.lower():
-            item = {}
-            item['awsaccount'] = account[0]
-            item['awsalias'] = account[1]
-            return item
-
-    raise typer.Abort()
-
-def default():
-
-    identity = pathlib.Path.joinpath(pathlib.Path.home(),'.aqueduct_idp')
-    identity_store = pathlib.Path(identity).read_text()
-
-    sso = pathlib.Path.joinpath(pathlib.Path.home(),'.aqueduct_sso')
-    sso_region = pathlib.Path(sso).read_text()
-
-    role = pathlib.Path.joinpath(pathlib.Path.home(),'.aqueduct_role')
+    role = pathlib.Path.joinpath(pathlib.Path.home(),'.botoplus_role')
     sso_role = pathlib.Path(role).read_text()
 
     selected_account  = typer.prompt("Selected Account").strip()
     print(' '+selected_account+'\n')
 
     if len(selected_account) == 12 and selected_account.isdigit():
+
         selected_account = account(selected_account,identity_store,sso_region)
-    else:    
+
+    else:
+
         selected_account = alias(selected_account,identity_store,sso_region)
 
     try:
+
         session = aws_sso_lib.get_boto3_session(
             start_url = 'https://'+identity_store+'.awsapps.com/start',
             sso_region = sso_region, 
@@ -111,28 +93,35 @@ def default():
             region  = sso_region,
             login = True
         )
+
         return session
+
     except:
+
         print('\n** '+selected_account['awsaccount']+' {'+selected_account['awsalias']+'} - DENIED **')
         pass
 
-def defaults(selected_account):
+def sessions(selected_account):
 
-    identity = pathlib.Path.joinpath(pathlib.Path.home(),'.aqueduct_idp')
+    identity = pathlib.Path.joinpath(pathlib.Path.home(),'.botoplus_idp')
     identity_store = pathlib.Path(identity).read_text()
 
-    sso = pathlib.Path.joinpath(pathlib.Path.home(),'.aqueduct_sso')
+    sso = pathlib.Path.joinpath(pathlib.Path.home(),'.botoplus_sso')
     sso_region = pathlib.Path(sso).read_text()
 
-    role = pathlib.Path.joinpath(pathlib.Path.home(),'.aqueduct_role')
+    role = pathlib.Path.joinpath(pathlib.Path.home(),'.botoplus_role')
     sso_role = pathlib.Path(role).read_text()
 
     if len(selected_account) == 12 and selected_account.isdigit():
+
         selected_account = account(selected_account,identity_store,sso_region)
-    else:    
+
+    else:
+
         selected_account = alias(selected_account,identity_store,sso_region)
 
     try:
+
         session = aws_sso_lib.get_boto3_session(
             start_url = 'https://'+identity_store+'.awsapps.com/start',
             sso_region = sso_region, 
@@ -141,33 +130,10 @@ def defaults(selected_account):
             region  = sso_region,
             login = True
         )
+
         return session
+
     except:
+
         print('\n** '+selected_account['awsaccount']+' {'+selected_account['awsalias']+'} - DENIED **')
         pass
-
-def deletebootstrap():
-    qualifier  = typer.prompt("Delete CDK Qualifier Bootstrap").strip()
-    print(' '+qualifier)
-    confirm = typer.confirm("Destroy")
-    if not confirm:
-        raise typer.Abort()
-    else:
-        return qualifier
-
-def deletestack():
-    stackname  = typer.prompt("Delete Stack Name").strip()
-    print(' '+stackname)
-    confirm = typer.confirm("Destroy")
-    if not confirm:
-        raise typer.Abort()
-    else:
-        return stackname
-
-def execution():
-    query_execution_id  = typer.prompt("Query Execution Id").strip()
-    print(' '+query_execution_id+'\n')
-    return query_execution_id
-
-def hello():
-    print('Hello, World!')
