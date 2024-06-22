@@ -48,4 +48,5 @@
 
 | Notebook | Description |
 | -------- | ----------- |
+| [deploy-external-access-analyzers](notebooks/iam/deploy-external-access-analyzers.ipynb) | External IAM Access Analyzers for Accounts & Organization  |
 | [periodic-daily-config-recordings](notebooks/controltower/periodic-daily-config-recordings.ipynb) | Setup or Stop Config Periodic Daily Recordings |
