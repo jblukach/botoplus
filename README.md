@@ -16,6 +16,10 @@
 
 ### Elastic Container Registry (ECR)
 
+| Notebook | Description |
+| -------- | ----------- |
+| [scan-container-images](notebooks/ecr/scan-container-images.ipynb) | Configure, Scan & Report Container Image Vulnerabilities |
+
 ### Organizations
 
 | Notebook | Description |
