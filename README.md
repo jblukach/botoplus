@@ -42,6 +42,12 @@
 | [enable-image-block-public-access](notebooks/ec2/enable-image-block-public-access.ipynb) | Enable Image Block Public Access |
 | [enable-snapshot-block-public-access](notebooks/ec2/enable-snapshot-block-public-access.ipynb) | Enable Snapshot Block Public Access |
 
+### Cloud Watch Logs (CWL)
+
+| Notebook | Description |
+| -------- | ----------- |
+| [cloud-watch-log-management](notebooks/cwlogs/cloud-watch-log-management.ipynb) | Cloud Watch Log Management |
+
 ## Threat Utilities
 
 ### Analysis
