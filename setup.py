@@ -13,7 +13,7 @@ setup(
     long_description_content_type = "text/markdown",
     url = "https://github.com/jblukach/botoplus",
     author = "John Lukach",
-    author_email = "hello@lukach.io",
+    author_email = "hello@4n6ir.com",
     license = "Apache-2.0",
     packages = ["botoplus"],
     install_requires = [
@@ -21,5 +21,5 @@ setup(
         "boto3",
         "typer"
     ],
-    python_requires = ">=3.8",
+    python_requires = ">=3.9",
 )
